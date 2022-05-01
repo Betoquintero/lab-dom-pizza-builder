@@ -63,20 +63,20 @@ function renderGreenPeppers() {
 }
 
 function renderWhiteSauce() {
-  const whiteSauce1 = document.querySelector('.sauce-white')
+  let whiteSauce1 = document.querySelector('.sauce')
     if (state.whiteSauce) {
-      whiteSauce1.visibility = 'visible';
+      whiteSauce1.classList.add('sauce-white');
     } else {
-      whiteSauce1.style.visibility = 'hidden';
+      whiteSauce1.classList.remove ('sauce-white');
     }
   }
 
 function renderGlutenFreeCrust() {
- const glutFreeCrust =  document.querySelector('.crust-gluten-free')
+ let glutFreeCrust =  document.querySelector('.crust')
     if (state.glutenFreeCrust) {
-      glutFreeCrust.style.visibility = 'visible';
+      glutFreeCrust.classList.add('crust-gluten-free');
     } else {
-      glutFreeCrust.style.visibility = 'hidden';
+      glutFreeCrust.classList.remove('crust-gluten-free');
     }
   };
 
@@ -119,8 +119,18 @@ function renderButtons() {
 }
 
 function renderPrice() {
- const arr = document.querySelectorAll("aside ul li")
- console.log('this' arr)
+  let ingredientList = document.querySelector('.panel.price > ul');
+  let ingredientSum = document.querySelector('.panel.price > strong');
+  let price = basePrice;
+  let contents = '';
+  for (let ingredient in state) {
+    if (state[ingredient] === true) {     
+      contents += `<li>$ ${ingredients[ingredient].price} ${ingredients[ingredient].name}</li>`;
+      price += ingredients[ingredient].price
+    }
+    ingredientList.innerHTML = contents
+    ingredientSum.innerText = '$' + price
+ }
 }
 
 renderEverything();
